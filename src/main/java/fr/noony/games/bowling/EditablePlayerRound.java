@@ -85,12 +85,6 @@ public class EditablePlayerRound implements Round {
         fireRoundUpdated(turnNumber);
     }
 
-    public void setThrowValue(int turnNumber, int throwNumber, int value, boolean isSplit) {
-        turns[turnNumber - 1].setThrowValue(throwNumber, value, isSplit);
-        updateScore();
-        fireRoundUpdated(turnNumber);
-    }
-
     public void setTurnIsSplit(int turnNumber, boolean isSplit) {
         turns[turnNumber - 1].setIsSplit(isSplit);
         fireRoundUpdated(turnNumber);
@@ -113,6 +107,7 @@ public class EditablePlayerRound implements Round {
             }
             fireRoundUpdated(turnNumber);
         } else {
+            System.err.println("setTurnIsSplit with number " + turnNumber + " -> " + isSplit);
             setTurnIsSplit(turnNumber, isSplit);
         }
     }
@@ -140,15 +135,48 @@ public class EditablePlayerRound implements Round {
         } else {
             return turns[turnNumber - 1].isSplit();
         }
-
     }
 
     public boolean isThrowStrike(int turnNumber) {
         return turns[turnNumber - 1].isStrike();
     }
+    
+    public boolean isThrowStrike(int turnNumber, int throwNumber) {
+        if (turnNumber == 10) {
+            switch (throwNumber) {
+                case 1:
+                    return ((LastEditableTurn) turns[9]).isStrike();
+                case 2:
+                    return ((LastEditableTurn) turns[9]).isSecondBallStrike();
+                case 3:
+                    return ((LastEditableTurn) turns[9]).isThirdBallStrike();
+                default:;
+                    throw new IllegalArgumentException("wrong throw number " + throwNumber);
+            }
+        } else {
+            return turns[turnNumber - 1].isStrike();
+        }
+    }
 
     public boolean isThrowSpare(int turnNumber) {
         return turns[turnNumber - 1].isSpare();
+    }
+    
+        public boolean isThrowSpare(int turnNumber, int throwNumber) {
+        if (turnNumber == 10) {
+            switch (throwNumber) {
+                case 1:
+                    return false;
+                case 2:
+                    return ((LastEditableTurn) turns[9]).isSpare();
+                case 3:
+                    return ((LastEditableTurn) turns[9]).isThirdBallSpare();
+                default:;
+                    throw new IllegalArgumentException("wrong throw number " + throwNumber);
+            }
+        } else {
+            return turns[turnNumber - 1].isSpare();
+        }
     }
 
     public int getScoreAtTurn(int turn) {
@@ -215,7 +243,6 @@ public class EditablePlayerRound implements Round {
                 }
                 break;
         }
-
     }
 
 }

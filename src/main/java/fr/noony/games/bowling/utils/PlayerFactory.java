@@ -45,6 +45,9 @@ public class PlayerFactory {
     }
 
     public static Player createPlayer(String firstName, String lastName, String nickName) {
+        while(PLAYERS.containsKey(nextUniqueID)){
+            nextUniqueID++;
+        }
         final Player player = new PlayerImpl(nextUniqueID, firstName, lastName, nickName);
         PLAYERS.put(nextUniqueID, player);
         incrementUniqueID();
@@ -148,10 +151,8 @@ public class PlayerFactory {
 
         @Override
         public String toString() {
-            return "Player[" + pUniqueID + "] " + pFirstName + " " + pLastName + "("+pNickName+")";
+            return pFirstName + " " + pLastName + " ("+pNickName+")";
         }
-        
-        
 
     }
 }

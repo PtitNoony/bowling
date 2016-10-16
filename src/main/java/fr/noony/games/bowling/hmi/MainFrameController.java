@@ -94,7 +94,7 @@ public class MainFrameController implements Initializable {
         //TODO: place it where it belongs and with a progress update
         //PlayerXmlUtils.parsePlayersFile(new File(Player.class.getResource("players.xml").getPath()));
         //PlayerFactory.getCreatedPlayers().forEach(player -> System.err.println(player));
-        XMLLoader.loadFile(new File(Player.class.getResource("TestBowling.xml").getPath()));
+//        XMLLoader.loadFile(new File(Player.class.getResource("TestBowling.xml").getPath()));
         ToggleGroup toggleGroup = new ToggleGroup();
 
         //TODO: properly

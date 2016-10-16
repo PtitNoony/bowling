@@ -56,9 +56,9 @@ public class LastTurnEditor extends FxDrawing implements ITurnDrawing {
         score2Label = new ThrowLabelEditable(DEFAULT_TEXT);
         score3Label = new ThrowLabelEditable(DEFAULT_TEXT);
         scoreFLabel = new ThrowLabel(DEFAULT_TEXT);
-        isSplitBox1 = new CheckBox("");
-        isSplitBox2 = new CheckBox("");
-        isSplitBox3 = new CheckBox("");
+        isSplitBox1 = new CheckBox("S");
+        isSplitBox2 = new CheckBox("S");
+        isSplitBox3 = new CheckBox("S");
         turnNumber = turnNb;
         init(listener);
     }
@@ -120,7 +120,7 @@ public class LastTurnEditor extends FxDrawing implements ITurnDrawing {
             playerRound.setTurnIsSplit(turnNumber, 3, newValue);
         });
         //
-        setSize(DEFAULT_CELL_WIDTH, DEFAULT_CELL_HEIGHT);
+        setSize(DEFAULT_CELL_WIDTH * 2.0, DEFAULT_CELL_HEIGHT);
     }
 
     @Override
@@ -148,16 +148,39 @@ public class LastTurnEditor extends FxDrawing implements ITurnDrawing {
         score1Label.setText(Integer.toString(playerRound.getThrowValue(turnNumber, 1)));
         score2Label.setText(Integer.toString(playerRound.getThrowValue(turnNumber, 2)));
         score3Label.setText(Integer.toString(playerRound.getThrowValue(turnNumber, 3)));
-        if (playerRound.isThrowSplit(turnNumber, 1)) {
+        //
+        if (playerRound.isThrowStrike(turnNumber, 1)) {
+            score1Label.setThrowType(BallType.STRIKE);
+        } else if (playerRound.isThrowSplit(turnNumber, 1)) {
             score1Label.setThrowType(BallType.SPLIT);
+        } else {
+            score1Label.setThrowType(BallType.SIMPLE);
         }
-        if (playerRound.isThrowSplit(turnNumber, 2)) {
+        //
+        if (playerRound.isThrowStrike(turnNumber, 2)) {
+            score2Label.setThrowType(BallType.STRIKE);
+        } else if (playerRound.isThrowSplit(turnNumber, 2)) {
             score2Label.setThrowType(BallType.SPLIT);
+        } else if (playerRound.isThrowSpare(turnNumber, 2)) {
+            score2Label.setThrowType(BallType.SPARE);
+        } else {
+            score2Label.setThrowType(BallType.SIMPLE);
         }
-        if (playerRound.isThrowSplit(turnNumber, 3)) {
+        //
+        if (playerRound.isThrowStrike(turnNumber, 3)) {
+            score3Label.setThrowType(BallType.STRIKE);
+        } else if (playerRound.isThrowSpare(turnNumber, 3)) {
+            score3Label.setThrowType(BallType.SPARE);
+        } else if (playerRound.isThrowSplit(turnNumber, 3)) {
             score3Label.setThrowType(BallType.SPLIT);
+        } else {
+            score3Label.setThrowType(BallType.SIMPLE);
         }
+        //
         scoreFLabel.setText(Integer.toString(playerRound.getScoreAtTurn(turnNumber)));
+        isSplitBox1.setSelected(playerRound.isThrowSplit(turnNumber, 1));
+        isSplitBox2.setSelected(playerRound.isThrowSplit(turnNumber, 2));
+        isSplitBox3.setSelected(playerRound.isThrowSplit(turnNumber, 3));
     }
 
 }

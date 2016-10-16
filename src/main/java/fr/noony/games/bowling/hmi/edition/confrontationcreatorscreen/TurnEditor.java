@@ -24,7 +24,6 @@ import fr.noony.games.bowling.EditablePlayerRound;
 import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -70,9 +69,9 @@ public class TurnEditor extends FxDrawing implements ITurnDrawing {
 
     private void init(PropertyChangeListener listener) {
         isSplitBox.setSelected(false);
-        isSplitBox.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-            LOG.log(Level.FINE, "new split for {0} on observable={1} oldValue={2} newValue={3}", new Object[]{this, observable, oldValue, newValue});
-            playerRound.setTurnIsSplit(turnNumber, newValue);
+        isSplitBox.setOnAction(event -> {
+            LOG.log(Level.SEVERE, "new split for {0} on observable={1} oldValue={2} newValue={3}", new Object[]{this, event});
+            playerRound.setTurnIsSplit(turnNumber, isSplitBox.isSelected());
         });
         //todo: hum?? for what
         score1Label.addPropertyChangeListener(listener);
@@ -113,10 +112,11 @@ public class TurnEditor extends FxDrawing implements ITurnDrawing {
             score1Label.setThrowType(BallType.SPLIT);
         } else if (playerRound.isThrowStrike(turnNumber)) {
             score1Label.setThrowType(BallType.STRIKE);
-        } else if (playerRound.isThrowSpare(turnNumber)) {
-            score1Label.setThrowType(BallType.SPARE);
         } else {
             score1Label.setThrowType(BallType.SIMPLE);
+        }
+        if (playerRound.isThrowSpare(turnNumber)) {
+            score2Label.setThrowType(BallType.SPARE);
         }
         //
         isSplitBox.setSelected(playerRound.isThrowSplit(turnNumber));

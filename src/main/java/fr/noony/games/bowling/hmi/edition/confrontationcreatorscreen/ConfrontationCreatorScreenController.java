@@ -148,18 +148,20 @@ public class ConfrontationCreatorScreenController implements Initializable {
     private void updateLayout() {
         int nbPlayers = playerConfrontationEditors.size();
         double newCellHeight = height / (nbPlayers + 0.5 );
-        double newCellWidth = width / (11 + CELL_NAME_RATIO);
+        double newCellWidth = width / (12 + CELL_NAME_RATIO);
         //background
         background.setWidth(width);
         background.setHeight(height);
         //first fine
         nameLabel.setPrefSize(newCellWidth * CELL_NAME_RATIO, newCellHeight / 2.0);
-        for (int i = 0; i < turnNumberLabels.length; i++) {
+        for (int i = 0; i < 9; i++) {
             turnNumberLabels[i].setTranslateX((CELL_NAME_RATIO + i) * newCellWidth);
             turnNumberLabels[i].setPrefSize(newCellWidth, newCellHeight / 2.0);
         }
+            turnNumberLabels[9].setTranslateX((CELL_NAME_RATIO + 9) * newCellWidth);
+            turnNumberLabels[9].setPrefSize(newCellWidth*2.0, newCellHeight / 2.0);
         scoreLabel.setPrefSize(newCellWidth, newCellHeight / 2.0);
-        scoreLabel.setTranslateX((CELL_NAME_RATIO + 10) * newCellWidth);
+        scoreLabel.setTranslateX((CELL_NAME_RATIO + 11) * newCellWidth);
         //player drawings
         playerConfrontationEditors.stream().forEach(playerGameDrawing -> {
             playerGameDrawing.setSize(width, newCellHeight);

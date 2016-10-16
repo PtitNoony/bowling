@@ -16,7 +16,6 @@
  */
 package fr.noony.games.bowling;
 
-import fr.noony.games.bowling.Turn;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -24,15 +23,15 @@ import java.beans.PropertyChangeListener;
  * @author Arnaud HAMON-KEROMEN
  */
 public interface EditableTurn extends Turn {
-    
-    void setThrowValue(int throwNumber, int value,boolean isSplit);
-    
+
+    void setThrowValue(int throwNumber, int value, boolean isSplit);
+
     void setIsSplit(boolean isSplit);
-    
-    default void setThrowValue(int throwNumber, int value){
-        setThrowValue( throwNumber,  value,false );
+
+    default void setThrowValue(int throwNumber, int value) {
+        setThrowValue(throwNumber, value, isSplit());
     }
-    
+
     void addPropertyChangeListener(PropertyChangeListener listener);
-    
+
 }
