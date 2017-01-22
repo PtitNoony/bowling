@@ -27,6 +27,12 @@ public interface LastTurn extends Turn {
      * @return if the second throw is a strike
      */
     boolean isSecondBallStrike();
+    
+    /**
+     *
+     * @return if the second throw is a spare
+     */
+    boolean isSecondBallSpare();
 
     /**
      *
@@ -46,6 +52,10 @@ public interface LastTurn extends Turn {
      */
     boolean isThirdBallSplit();
 
+    /**
+     * 
+     * @return if the third throw is a spare
+     */
     boolean isThirdBallSpare();
 
 }

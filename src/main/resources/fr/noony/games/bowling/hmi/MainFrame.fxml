@@ -27,7 +27,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.games.bowling.hmi.MainFrameController">
+<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.games.bowling.hmi.MainFrameController">
     <stylesheets>
         <URL value="@/fr/noony/games/bowling/hmi/mainframe.css" />
     </stylesheets>
@@ -41,8 +41,8 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#onSaveAction" text="Save" />
             <Separator orientation="VERTICAL" />
-            <ToggleButton fx:id="editionModeTB" mnemonicParsing="false" selected="true" text="Edition Mode" />
-            <ToggleButton fx:id="statisticsModeTB" disable="true" mnemonicParsing="false" text="Statistics Mode" />
+            <ToggleButton fx:id="editionModeTB" mnemonicParsing="false" onAction="#switchEditionMode" selected="true" text="Edition Mode" />
+            <ToggleButton fx:id="statisticsModeTB" mnemonicParsing="false" onAction="#switchStatMode" text="Statistics Mode" />
          </children>
          <padding>
             <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />

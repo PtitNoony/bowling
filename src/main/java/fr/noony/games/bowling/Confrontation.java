@@ -29,14 +29,17 @@ public class Confrontation {
 
     private final LocalDate confrontationDate;
     private final List<Round> rounds;
+    private final List<Player> players;
 
     public Confrontation(LocalDate date) {
         confrontationDate = date;
         rounds = new LinkedList<>();
+        players = new LinkedList<>();
     }
 
     public void addRound(Round round) {
         rounds.add(round);
+        players.add(round.getPlayer());
     }
 
     public List<Round> getRounds() {
@@ -59,6 +62,10 @@ public class Confrontation {
             }
         }
         return null;
+    }
+
+    public List<Player> getPlayers() {
+        return Collections.unmodifiableList(players);
     }
 
 }

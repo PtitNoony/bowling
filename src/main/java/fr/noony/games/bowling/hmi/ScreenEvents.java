@@ -39,4 +39,9 @@ public class ScreenEvents {
     //TODO rename: ambiguous
     public static final String BACK_HOME = "backHome";
     
+    // Stats related events
+    public static final String VIEW_PLAYER_STATS = "viewPlayerStats";
+    
+    public static final String COMPARE_PLAYERS_STATS = "comparePlayersStats";
+    
 }

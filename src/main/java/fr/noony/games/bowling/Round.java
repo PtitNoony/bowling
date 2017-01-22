@@ -43,5 +43,9 @@ public interface Round {
     Player getPlayer();
 
     Turn[] getTurns();
+    
+    int getNbStrikes();
+    
+    int getNbSpare();
 
 }

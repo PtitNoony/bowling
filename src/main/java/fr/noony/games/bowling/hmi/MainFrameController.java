@@ -17,13 +17,17 @@
 package fr.noony.games.bowling.hmi;
 
 import fr.noony.games.bowling.utils.XMLLoader;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.EditablePlayerRound;
+import fr.noony.games.bowling.analytics.ComparisonMode;
+import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.edition.confrontationcreatorscreen.ConfrontationCreatorScreen;
 import fr.noony.games.bowling.hmi.edition.homescreen.HomeScreen;
 import fr.noony.games.bowling.hmi.edition.scoreview.SessionScoreViewerScreen;
 import fr.noony.games.bowling.hmi.edition.sessioncreatorscreen.SessionCreatorScreen;
+import fr.noony.games.bowling.hmi.stats.comparestatscreen.CompareStatsScreen;
+import fr.noony.games.bowling.hmi.stats.mainstatscreen.MainStatsScreen;
+import fr.noony.games.bowling.hmi.stats.playerstatsscreen.PlayerStatsScreen;
 import fr.noony.games.bowling.utils.XMLSaver;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
@@ -73,10 +77,16 @@ public class MainFrameController implements Initializable {
     private EditionState previousEditionState;
     private EditionState currentEditionState;
 
+    // Edition screens
     private HomeScreen homeScreen;
     private SessionCreatorScreen sessionCreatorScreen;
     private ConfrontationCreatorScreen confrontationCreatorScreen;
     private SessionScoreViewerScreen scoreViewerScreen;
+
+    // Stats screens
+    private MainStatsScreen mainStatsScreen;
+    private PlayerStatsScreen playerStatsScreen;
+    private CompareStatsScreen compareStatsScreen;
 
     private Session currentSession;
 
@@ -124,8 +134,28 @@ public class MainFrameController implements Initializable {
         }
     }
 
+    @FXML
+    protected void switchStatMode(ActionEvent event) {
+        setApplicationMode(ApplicationMode.STATISTICS);
+    }
+
+    @FXML
+    protected void switchEditionMode(ActionEvent event) {
+        setApplicationMode(ApplicationMode.EDITION);
+    }
+
     private void setApplicationMode(ApplicationMode newMode) {
         applicationMode = newMode;
+        switch (applicationMode) {
+            case EDITION:
+                //TODO: remember last edition screen?
+                loadHomeScreen();
+                break;
+            case STATISTICS:
+                //tmp
+                loadStatHomePage();
+                break;
+        }
     }
 
     private void setHome() {
@@ -172,6 +202,41 @@ public class MainFrameController implements Initializable {
         confrontationCreatorScreen.setSessionInProgress(session);
         setAnchorPaneConstant(confrontationCreatorScreen.getMainNode());
         currentScreen = confrontationCreatorScreen;
+    }
+
+    // 
+    //// methods for loading stat pages
+    //
+    private void loadStatHomePage() {
+        if (mainStatsScreen == null) {
+            mainStatsScreen = new MainStatsScreen();
+            mainStatsScreen.addPropertyChangeListener(this::handleMainStatsEvents);
+        }
+        setAnchorPaneConstant(mainStatsScreen.getMainNode());
+        currentScreen = mainStatsScreen;
+        mainStatsScreen.refresh();
+    }
+
+    private void loadPlayerStatPage(PlayerAnalytics playerAnalytics) {
+        if (playerStatsScreen == null) {
+            playerStatsScreen = new PlayerStatsScreen();
+            //TODO
+//            mainStatsScreen.addPropertyChangeListener(this::handleHomeEvents);
+        }
+        setAnchorPaneConstant(playerStatsScreen.getMainNode());
+        currentScreen = playerStatsScreen;
+        playerStatsScreen.setPlayerAnalytics(playerAnalytics);
+    }
+
+    private void loadComparePlayersStatPage(ComparisonMode mode, List<PlayerAnalytics> playerAnalyticses) {
+        if (compareStatsScreen == null) {
+            compareStatsScreen = new CompareStatsScreen();
+            //TODO
+//            mainStatsScreen.addPropertyChangeListener(this::handleHomeEvents);
+        }
+        setAnchorPaneConstant(compareStatsScreen.getMainNode());
+        currentScreen = compareStatsScreen;
+        compareStatsScreen.setPlayersAnalytics(mode, playerAnalyticses);
     }
 
     //
@@ -258,6 +323,22 @@ public class MainFrameController implements Initializable {
             default:
                 throw new UnsupportedOperationException("Unsupported event on HOME page:: " + event.getPropertyName());
         }
+    }
+
+    private void handleMainStatsEvents(PropertyChangeEvent event) {
+//        System.err.println("handleMainStatsEvents " + event.getPropertyName());
+        // Test the screen and display mode
+        switch (event.getPropertyName()) {
+            case ScreenEvents.VIEW_PLAYER_STATS:
+                loadPlayerStatPage((PlayerAnalytics) event.getNewValue());
+                break;
+            case ScreenEvents.COMPARE_PLAYERS_STATS:
+                loadComparePlayersStatPage((ComparisonMode) event.getOldValue(), (List<PlayerAnalytics>) event.getNewValue());
+                break;
+            default:
+                throw new UnsupportedOperationException("Unsupported event on MAIN STAT SCREEN page:: " + event.getPropertyName());
+        }
+
     }
 
     private void setAnchorPaneConstant(Node node) {

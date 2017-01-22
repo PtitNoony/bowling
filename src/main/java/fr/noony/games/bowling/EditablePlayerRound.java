@@ -75,6 +75,44 @@ public class EditablePlayerRound implements Round {
         return turns.clone();
     }
 
+    @Override
+    public int getNbSpare() {
+        //TODO cache the value
+        int result =0;
+        for(int i =0 ; i<9;i++){
+            if(turns[i].isSpare()){
+                result++;
+            }
+        }
+        LastTurn lastTurn = (LastTurn)turns[9];
+        if(lastTurn.isSecondBallSpare()){
+            result++;
+        } if(lastTurn.isThirdBallSpare()){
+            result++;
+        }
+        return result;
+    }
+
+    @Override
+    public int getNbStrikes() {
+        //TODO cache the value
+        int result=0;
+        for(int i =0 ; i<10;i++){
+            if(turns[i].isStrike()){
+                result++;
+            }
+        }
+        LastTurn lastTurn = (LastTurn)turns[9];
+        if(lastTurn.isSecondBallStrike()){
+            result++;
+        } if(lastTurn.isThirdBallStrike()){
+            result++;
+        }
+        return result;
+    }
+    
+    
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }

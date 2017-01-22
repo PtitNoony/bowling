@@ -61,6 +61,11 @@ public class LastEditableTurnImpl implements LastEditableTurn {
     }
 
     @Override
+    public boolean isSecondBallSpare() {
+        return isSpare();
+    }
+
+    @Override
     public int getNbPinForThrow(int throwNumber) {
         switch (throwNumber) {
             case 1:

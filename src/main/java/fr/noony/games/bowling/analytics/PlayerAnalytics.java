@@ -43,6 +43,11 @@ public class PlayerAnalytics {
     private int maxScore = 0;
     private int totalPoints = 0;
     private double averageScore = 0.0;
+    //
+    private int nbStrikes = 0;
+    private int nbSpare = 0;
+    private double averageSpares =0.0;
+    private double averageStrikes =0.0;
 
     public PlayerAnalytics(Player aplayer) {
         player = aplayer;
@@ -64,9 +69,63 @@ public class PlayerAnalytics {
         sessions.addAll(Sessions.getSessions().stream().filter(s -> s.getPlayers().contains(player)).collect(Collectors.toList()));
         nbSessions = sessions.size();
 
-        //retreiving rounds
+        // retreiving rounds
         sessions.forEach(s -> s.getConfrontations().forEach(c -> rounds.add(c.getPlayerRound(player))));
 
+        // analyze each round
+        int roundScore;
+        for (Round r : rounds) {
+            roundScore = r.getFinalScore();
+            maxScore = Math.max(maxScore, roundScore);
+            // hum..., could use Integer max instead as initial value
+            if (minScore < 0) {
+                minScore = roundScore;
+            } else {
+                minScore = Math.min(minScore, roundScore);
+            }
+
+            nbSpare += r.getNbSpare();
+            nbStrikes += r.getNbStrikes();
+            totalPoints += roundScore;
+        }
+
+        //TODO: cache size
+        averageScore = (double) totalPoints / rounds.size();
+        averageSpares = (double) nbSpare / rounds.size();
+        averageStrikes = (double) nbStrikes / rounds.size();
+
+//        System.err.println(player.getNickName() + " played " + rounds.size() + " rounds");
+//        System.err.println("  -> minScore: " + minScore);
+//        System.err.println("  -> maxScore: " + maxScore);
+//        System.err.println("  -> avgScore: " + averageScore);
     }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public int getMinScore() {
+        return minScore;
+    }
+
+    public double getAverageScore() {
+        return averageScore;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public double getAverageSpares() {
+        return averageSpares;
+    }
+
+    public double getAverageStrikes() {
+        return averageStrikes;
+    }
+
+
+    
+    
 
 }
