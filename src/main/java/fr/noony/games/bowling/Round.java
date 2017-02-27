@@ -47,5 +47,9 @@ public interface Round {
     int getNbStrikes();
     
     int getNbSpare();
+    
+    void setConfrontation(Confrontation confrontation);
+    
+    Confrontation getConfrontation();
 
 }

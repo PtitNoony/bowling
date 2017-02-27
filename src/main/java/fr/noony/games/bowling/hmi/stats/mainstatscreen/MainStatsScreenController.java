@@ -20,6 +20,7 @@ import fr.noony.games.bowling.analytics.ComparisonMode;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
+import fr.noony.games.bowling.utils.PlayerAnalyticsFactory;
 import fr.noony.games.bowling.utils.PlayerFactory;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -103,7 +104,7 @@ public class MainStatsScreenController implements ScreenController {
 
     protected void refresh() {
         // create new analytic list
-        playerAnalyticses = PlayerFactory.getCreatedPlayers().stream().map(player -> new PlayerAnalytics(player)).collect(Collectors.toList());
+        playerAnalyticses = PlayerFactory.getCreatedPlayers().stream().map(player -> PlayerAnalyticsFactory.getPlayerAnalytics(player)).collect(Collectors.toList());
         scoreTable.getItems().setAll(playerAnalyticses);
     }
 

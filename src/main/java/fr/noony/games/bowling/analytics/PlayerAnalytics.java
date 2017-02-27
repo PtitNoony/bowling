@@ -18,114 +18,35 @@ package fr.noony.games.bowling.analytics;
 
 import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Round;
-import fr.noony.games.bowling.Session;
-import fr.noony.games.bowling.Sessions;
-import fr.noony.games.bowling.Turn;
-import java.util.LinkedList;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author Arnaud HAMON-KEROMEN
  */
-public class PlayerAnalytics {
+public interface PlayerAnalytics {
 
-    private final Player player;
+    void recalculate();
 
-    private final List<Session> sessions;
-    private final List<Round> rounds;
-    private final List<Integer> scores;
+    Player getPlayer();
 
-    private int nbSessions = 0;
-    private int nbRounds = 0;
-    private int minScore = -1;
-    private int maxScore = 0;
-    private int totalPoints = 0;
-    private double averageScore = 0.0;
-    //
-    private int nbStrikes = 0;
-    private int nbSpare = 0;
-    private double averageSpares =0.0;
-    private double averageStrikes =0.0;
+    Map<LocalDate, List<Round>> getAllRounds();
 
-    public PlayerAnalytics(Player aplayer) {
-        player = aplayer;
-        sessions = new LinkedList<>();
-        rounds = new LinkedList<>();
-        scores = new LinkedList<>();
-        recalculate();
-    }
+    Color getPlayerColor();
 
-    public final void recalculate() {
-        sessions.clear();
-        rounds.clear();
-        scores.clear();
-        totalPoints = 0;
-        minScore = -1;
-        maxScore = 0;
+    void setPlayerColor(Color color);
 
-        // retreive the sessions
-        sessions.addAll(Sessions.getSessions().stream().filter(s -> s.getPlayers().contains(player)).collect(Collectors.toList()));
-        nbSessions = sessions.size();
+    int getMinScore();
 
-        // retreiving rounds
-        sessions.forEach(s -> s.getConfrontations().forEach(c -> rounds.add(c.getPlayerRound(player))));
+    double getAverageScore();
 
-        // analyze each round
-        int roundScore;
-        for (Round r : rounds) {
-            roundScore = r.getFinalScore();
-            maxScore = Math.max(maxScore, roundScore);
-            // hum..., could use Integer max instead as initial value
-            if (minScore < 0) {
-                minScore = roundScore;
-            } else {
-                minScore = Math.min(minScore, roundScore);
-            }
+    int getMaxScore();
 
-            nbSpare += r.getNbSpare();
-            nbStrikes += r.getNbStrikes();
-            totalPoints += roundScore;
-        }
+    double getAverageSpares();
 
-        //TODO: cache size
-        averageScore = (double) totalPoints / rounds.size();
-        averageSpares = (double) nbSpare / rounds.size();
-        averageStrikes = (double) nbStrikes / rounds.size();
-
-//        System.err.println(player.getNickName() + " played " + rounds.size() + " rounds");
-//        System.err.println("  -> minScore: " + minScore);
-//        System.err.println("  -> maxScore: " + maxScore);
-//        System.err.println("  -> avgScore: " + averageScore);
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public int getMinScore() {
-        return minScore;
-    }
-
-    public double getAverageScore() {
-        return averageScore;
-    }
-
-    public int getMaxScore() {
-        return maxScore;
-    }
-
-    public double getAverageSpares() {
-        return averageSpares;
-    }
-
-    public double getAverageStrikes() {
-        return averageStrikes;
-    }
-
-
-    
-    
+    double getAverageStrikes();
 
 }

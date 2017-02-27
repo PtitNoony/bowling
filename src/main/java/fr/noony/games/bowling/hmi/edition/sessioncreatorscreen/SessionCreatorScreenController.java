@@ -19,12 +19,13 @@ package fr.noony.games.bowling.hmi.edition.sessioncreatorscreen;
 import fr.noony.games.bowling.Confrontation;
 import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
-import fr.noony.games.bowling.Sessions;
 import fr.noony.games.bowling.EditablePlayerRound;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.hmi.edition.playercreation.PlayerDialogFactory;
+import fr.noony.games.bowling.utils.ConfrontationFactory;
 import fr.noony.games.bowling.utils.PlayerFactory;
+import fr.noony.games.bowling.utils.SessionFactory;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
@@ -76,7 +77,7 @@ public class SessionCreatorScreenController implements ScreenController {
             //todo log
             session.setDate(newValue);
         });
-        session = new Session(LocalDate.now());
+        session = SessionFactory.createSession(LocalDate.now());
 
         playerColumn.setPrefWidth(100);
         playerColumn.setCellValueFactory((TableColumn.CellDataFeatures<Player, String> param) -> new ReadOnlyStringWrapper(param.getValue().getNickName()));
@@ -118,13 +119,14 @@ public class SessionCreatorScreenController implements ScreenController {
     public void onCreateSessionAction(ActionEvent event) {
         //todo log
         session.setLocation(locationField.getText() != null ? locationField.getText() : "");
-        Sessions.addSession(session);
+        // no need since added upon creation
+//        Sessions.addSession(session);
         tableView.getItems().clear();
         propertyChangeSupport.firePropertyChange(ScreenEvents.MAIN_SCREEN, null, null);
     }
 
     protected void createConfrontation(List<EditablePlayerRound> confrontationRounds) {
-        final Confrontation confrontation = new Confrontation(sessionDatePicker.getValue());
+        final Confrontation confrontation = ConfrontationFactory.createSession(sessionDatePicker.getValue());
         confrontationRounds.forEach(round -> confrontation.addRound(round));
         session.addConfrontation(confrontation);
 

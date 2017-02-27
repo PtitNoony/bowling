@@ -20,7 +20,6 @@ import fr.noony.games.bowling.Confrontation;
 import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.Session;
-import fr.noony.games.bowling.Sessions;
 import fr.noony.games.bowling.EditablePlayerRound;
 
 import java.io.File;
@@ -95,18 +94,18 @@ public final class XMLLoader {
         LocalDate date = LocalDate.parse(dateString);
         String location = element.getAttribute(XMLSaver.SESSION_LOCATION);
         //
-        Session session = new Session(date,location);
+        Session session = SessionFactory.createSession(date,location);
         //
         NodeList confrontations = element.getElementsByTagName(XMLSaver.CONFRONTATION);
         for (int i = 0; i < confrontations.getLength(); i++) {
             final Confrontation confrontation = parseConfrontation((Element) confrontations.item(i), date);
             session.addConfrontation(confrontation);
         }
-        Sessions.addSession(session);
+//        Sessions.addSession(session);
     }
 
     private static Confrontation parseConfrontation(Element element, LocalDate date) {
-        Confrontation confrontation = new Confrontation(date);
+        Confrontation confrontation = ConfrontationFactory.createSession(date);
         NodeList games = element.getElementsByTagName(XMLSaver.GAME);
         for (int i = 0; i < games.getLength(); i++) {
             Round round = parsePlayerGame((Element) games.item(i));

@@ -17,91 +17,33 @@
 package fr.noony.games.bowling;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author Arnaud HAMON-KEROMEN
  */
-public class Session {
+public interface Session {
 
-    private final List<Confrontation> confrontations;
-    // todo is it ok?
-    private final List<Player> players;
+    void setDate(LocalDate date);
 
-    //todo use it as an interface?
-    private LocalDate sessionDate;
-    private String location;
+    void setLocation(String sessionLocation);
 
-    public Session(LocalDate date, String aLocation) {
-        sessionDate = date;
-        location = aLocation;
-        confrontations = new LinkedList<>();
-        players = new LinkedList<>();
-    }
+    LocalDate getSessionDate();
 
-    public Session(LocalDate date) {
-        this(date, "");
-    }
+    String getLocation();
 
-    //todo
-    public Session() {
-        confrontations = new LinkedList<>();
-        players = new LinkedList<>();
-    }
+    void addConfrontation(Confrontation c);
 
-    public void setDate(LocalDate date) {
-        sessionDate = date;
-    }
+    List<Confrontation> getConfrontations();
 
-    public void setLocation(String sessionLocation) {
-        location = sessionLocation;
-    }
+    void addPlayer(Player player);
 
-    public LocalDate getSessionDate() {
-        return sessionDate;
-    }
+    List<Player> getPlayers();
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void addConfrontation(Confrontation c) {
-        confrontations.add(c);
-        c.getRounds().forEach(round -> {
-            if (!players.contains(round.getPlayer())) {
-                players.add(round.getPlayer());
-            }
-        });
-    }
-
-    public List<Confrontation> getConfrontations() {
-        return confrontations;
-    }
-
-    public void addPlayer(Player player) {
-        if (!players.contains(player)) {
-            players.add(player);
-        }
-    }
-
-    public List<Player> getPlayers() {
-        return Collections.unmodifiableList(players);
-    }
-
-    public int getTotalScore(Player p) {
-        int score = 0;
-        for (int i = 0; i < confrontations.size(); i++) {
-            score += confrontations.get(i).getPlayerScore(p);
-        }
-        return score;
-    }
-
-    @Override
-    public String toString() {
-        return "Session: " + players.size() + " players on " + sessionDate + " @ " + location;
-    }
+    int getTotalScore(Player p);
+    
+    //hum? or just in equals??
+    int getSessionID();
 
 }

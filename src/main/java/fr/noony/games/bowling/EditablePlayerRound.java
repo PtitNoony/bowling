@@ -34,6 +34,8 @@ public class EditablePlayerRound implements Round {
 
     private final int[] scores;
 
+    private Confrontation confrontation;
+
     private int currentScore = 0;
 
     public EditablePlayerRound(Player aPlayer) {
@@ -78,16 +80,17 @@ public class EditablePlayerRound implements Round {
     @Override
     public int getNbSpare() {
         //TODO cache the value
-        int result =0;
-        for(int i =0 ; i<9;i++){
-            if(turns[i].isSpare()){
+        int result = 0;
+        for (int i = 0; i < 9; i++) {
+            if (turns[i].isSpare()) {
                 result++;
             }
         }
-        LastTurn lastTurn = (LastTurn)turns[9];
-        if(lastTurn.isSecondBallSpare()){
+        LastTurn lastTurn = (LastTurn) turns[9];
+        if (lastTurn.isSecondBallSpare()) {
             result++;
-        } if(lastTurn.isThirdBallSpare()){
+        }
+        if (lastTurn.isThirdBallSpare()) {
             result++;
         }
         return result;
@@ -96,22 +99,31 @@ public class EditablePlayerRound implements Round {
     @Override
     public int getNbStrikes() {
         //TODO cache the value
-        int result=0;
-        for(int i =0 ; i<10;i++){
-            if(turns[i].isStrike()){
+        int result = 0;
+        for (int i = 0; i < 10; i++) {
+            if (turns[i].isStrike()) {
                 result++;
             }
         }
-        LastTurn lastTurn = (LastTurn)turns[9];
-        if(lastTurn.isSecondBallStrike()){
+        LastTurn lastTurn = (LastTurn) turns[9];
+        if (lastTurn.isSecondBallStrike()) {
             result++;
-        } if(lastTurn.isThirdBallStrike()){
+        }
+        if (lastTurn.isThirdBallStrike()) {
             result++;
         }
         return result;
     }
-    
-    
+
+    @Override
+    public void setConfrontation(Confrontation aConfrontation) {
+        confrontation = aConfrontation;
+    }
+
+    @Override
+    public Confrontation getConfrontation() {
+        return confrontation;
+    }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
@@ -178,7 +190,7 @@ public class EditablePlayerRound implements Round {
     public boolean isThrowStrike(int turnNumber) {
         return turns[turnNumber - 1].isStrike();
     }
-    
+
     public boolean isThrowStrike(int turnNumber, int throwNumber) {
         if (turnNumber == 10) {
             switch (throwNumber) {
@@ -199,8 +211,8 @@ public class EditablePlayerRound implements Round {
     public boolean isThrowSpare(int turnNumber) {
         return turns[turnNumber - 1].isSpare();
     }
-    
-        public boolean isThrowSpare(int turnNumber, int throwNumber) {
+
+    public boolean isThrowSpare(int turnNumber, int throwNumber) {
         if (turnNumber == 10) {
             switch (throwNumber) {
                 case 1:

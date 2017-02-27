@@ -94,7 +94,7 @@ public class XMLSaver {
             // save sessions
             Element sessionGroupElement = doc.createElement(SESSION_GROUP);
             rootElement.appendChild(sessionGroupElement);
-            Sessions.getSessions().forEach(session -> sessionGroupElement.appendChild(getSessionXMLElement(doc, session)));
+            SessionFactory.getCreatedSessions().forEach(session -> sessionGroupElement.appendChild(getSessionXMLElement(doc, session)));
             //
             rootElement.normalize();
             // write the content into xml file

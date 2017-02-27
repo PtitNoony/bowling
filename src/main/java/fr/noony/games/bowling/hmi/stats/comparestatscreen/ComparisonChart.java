@@ -19,6 +19,7 @@ package fr.noony.games.bowling.hmi.stats.comparestatscreen;
 import fr.noony.games.bowling.Confrontation;
 import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Round;
+import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashMap;
@@ -149,42 +150,32 @@ public class ComparisonChart {
         mainNode.getChildren().addAll(x100, x200, x300, xAxis, yAxis);
     }
 
-    public void setData(Map<LocalDate, List<Confrontation>> confrontationsByDate) {
+    public void setData(List<PlayerAnalytics> listAnalytics, Map<LocalDate, List<Confrontation>> confrontations) {
         // TODO remove all
         // not optimized, nor at the right place
         dayDrawings = new LinkedList<>();
         // humm
-       Map<Player,Map<LocalDate,List<Round>>> allPlayersRounds = new HashMap<>();
-        
-        confrontationsByDate.forEach((d, l) -> {
-            DayDrawing dayDrawing = new DayDrawing(d, l);
+        Map<Player, Map<LocalDate, List<Round>>> allPlayersRounds = new HashMap<>();
+
+        listAnalytics.forEach(playerAnalytics -> {
+            allPlayersRounds.put(playerAnalytics.getPlayer(), new HashMap<>());
+        });
+
+        confrontations.forEach((date, list) -> {
+            DayDrawing dayDrawing = new DayDrawing(date, list);
             dataGroup.getChildren().add(dayDrawing.getNode());
             dayDrawings.add(dayDrawing);
-            l.forEach(confrontation->{
-                confrontation.getRounds().forEach(round->{
-                    if(!allPlayersRounds.containsKey(round.getPlayer())){
-                       Map<LocalDate,List<Round>> playerMap = new HashMap<>();
-                       playerMap.put(d, new LinkedList<>());
-                       allPlayersRounds.put(round.getPlayer(), playerMap );
-                    }
-                    if(!allPlayersRounds.get(round.getPlayer()).containsKey(d)){
-                        allPlayersRounds.get(round.getPlayer()).put(d, new LinkedList<>());
-                    }
-                    allPlayersRounds.get(round.getPlayer()).get(d).add(round);
-                });
-            });
         });
-        dayDrawings.sort(this::compareDay);
 
+        dayDrawings.sort(this::compareDay);
 
         //
         playerScoresDrawings = new LinkedList<>();
         // TODO optimize and merge
-        
-        
+
         //
-        allPlayersRounds.forEach((player, playerMap) -> {
-            PlayerScoresDrawing playerScoresDrawing = new PlayerScoresDrawing(player, playerMap);
+        listAnalytics.forEach(pA -> {
+            PlayerScoresDrawing playerScoresDrawing = new PlayerScoresDrawing(pA);
             dataGroup.getChildren().add(playerScoresDrawing.getNode());
             playerScoresDrawings.add(playerScoresDrawing);
         });
@@ -211,8 +202,8 @@ public class ComparisonChart {
             //TODO cache
             dayDrawing.setHeight(300 * pointRatio);
             //TODO change to only modify group node
-           dayDrawing.setY(height - PADDING - TEXT_HEIGHT);
-            daysWidth += dayDrawing.getWidth();  
+            dayDrawing.setY(height - PADDING - TEXT_HEIGHT);
+            daysWidth += dayDrawing.getWidth();
             if (dayDrawing.getDate().isBefore(minDate)) {
                 minDate = dayDrawing.getDate();
             } else if (dayDrawing.getDate().isAfter(maxDate)) {
@@ -223,7 +214,7 @@ public class ComparisonChart {
         long nbDays = maxDate.toEpochDay() - minDate.toEpochDay();
         long firstDay = minDate.toEpochDay();
         //
-       double availableWidth = width - 2 * PADDING - TEXT_WIDTH - daysWidth;
+        double availableWidth = width - 2 * PADDING - TEXT_WIDTH - daysWidth;
         dayRatio = availableWidth / nbDays;
         double addedDaysWidth = 0;
         for (int i = 0; i < dayDrawings.size(); i++) {
@@ -234,22 +225,20 @@ public class ComparisonChart {
         }
         // get the X ratio for each day
         //TODO: could be done inside previous loop
-        Map<LocalDate,Double> xDates = new HashMap<>();
+        Map<LocalDate, Double> xDates = new HashMap<>();
         for (int i = 0; i < dayDrawings.size(); i++) {
             xDates.put(dayDrawings.get(i).getDate(), dayDrawings.get(i).getX());
         }
         xDates = Collections.unmodifiableMap(xDates);
-        
-        //
+
         // TODO use functional
         PlayerScoresDrawing playerScoresDrawing;
         for (int i = 0; i < playerScoresDrawings.size(); i++) {
             playerScoresDrawing = playerScoresDrawings.get(i);
             playerScoresDrawing.setX(xOffset);
             playerScoresDrawing.setY(height - PADDING - TEXT_HEIGHT);
-            playerScoresDrawing.updateRatios(firstDay, dayRatio, pointRatio,xDates);
+            playerScoresDrawing.updateRatios(firstDay, dayRatio, pointRatio, xDates);
         }
-
     }
 
 }

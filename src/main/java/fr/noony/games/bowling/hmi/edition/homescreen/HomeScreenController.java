@@ -18,11 +18,11 @@ package fr.noony.games.bowling.hmi.edition.homescreen;
 
 import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
-import fr.noony.games.bowling.Sessions;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.hmi.edition.playercreation.PlayerDialogFactory;
 import fr.noony.games.bowling.utils.PlayerFactory;
+import fr.noony.games.bowling.utils.SessionFactory;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
@@ -83,7 +83,7 @@ public class HomeScreenController implements ScreenController {
     }
 
     protected void refresh() {
-        sessionListView.getItems().setAll(Sessions.getSessions());
+        sessionListView.getItems().setAll(SessionFactory.getCreatedSessions());
         playerListView.getItems().setAll(PlayerFactory.getCreatedPlayers());
     }
 

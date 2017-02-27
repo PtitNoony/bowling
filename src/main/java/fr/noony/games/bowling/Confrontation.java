@@ -17,55 +17,30 @@
 package fr.noony.games.bowling;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author Arnaud HAMON-KEROMEN
  */
-public class Confrontation {
+public interface Confrontation {
 
-    private final LocalDate confrontationDate;
-    private final List<Round> rounds;
-    private final List<Player> players;
+    void addRound(Round round);
 
-    public Confrontation(LocalDate date) {
-        confrontationDate = date;
-        rounds = new LinkedList<>();
-        players = new LinkedList<>();
-    }
+    List<Round> getRounds();
 
-    public void addRound(Round round) {
-        rounds.add(round);
-        players.add(round.getPlayer());
-    }
+    LocalDate getConfrontationDate();
 
-    public List<Round> getRounds() {
-        return Collections.unmodifiableList(rounds);
-    }
+    int getPlayerScore(Player p);
 
-    public LocalDate getConfrontationDate() {
-        return confrontationDate;
-    }
+    Round getPlayerRound(Player p);
 
-    public int getPlayerScore(Player p) {
-        return getPlayerRound(p).getFinalScore();
-    }
+    List<Player> getPlayers();
 
-    public Round getPlayerRound(Player p) {
-        //TODO change data structure
-        for (Round round : rounds) {
-            if (round.getPlayer().equals(p)) {
-                return round;
-            }
-        }
-        return null;
-    }
+    Session getSession();
 
-    public List<Player> getPlayers() {
-        return Collections.unmodifiableList(players);
-    }
+    void setSession(Session session);
+
+    int getID();
 
 }

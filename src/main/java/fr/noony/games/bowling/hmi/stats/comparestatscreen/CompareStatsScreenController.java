@@ -19,10 +19,11 @@ package fr.noony.games.bowling.hmi.stats.comparestatscreen;
 import fr.noony.games.bowling.Confrontation;
 import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
-import fr.noony.games.bowling.Sessions;
 import fr.noony.games.bowling.analytics.ComparisonMode;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.ScreenController;
+import fr.noony.games.bowling.utils.PlayerAnalyticsFactory;
+import fr.noony.games.bowling.utils.SessionFactory;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.time.LocalDate;
@@ -78,12 +79,11 @@ public class CompareStatsScreenController implements ScreenController {
 
     protected void setPlayersAnalytics(ComparisonMode mode, List<PlayerAnalytics> playerAnalyticses) {
 
-
         List<Player> players = Collections.unmodifiableList(playerAnalyticses.stream().map(pA -> pA.getPlayer()).collect(Collectors.toList()));
 
         Map<LocalDate, List<Confrontation>> confrontations = new HashMap<>();
 
-        Sessions.getSessions().stream()
+        SessionFactory.getCreatedSessions().stream()
                 .sorted(this::compareSession)
                 .forEach(session -> {
                     session.getConfrontations().stream()
@@ -96,11 +96,22 @@ public class CompareStatsScreenController implements ScreenController {
                             });
                 });
 
-        chart.setData(Collections.unmodifiableMap(confrontations));
+        // get the players analytics for each player in these confrontations
+        List<PlayerAnalytics> listAnalytics = new LinkedList<>();
+        confrontations.forEach((date, cList) -> cList
+                .forEach(confrontation -> confrontation.getPlayers()
+                .forEach(player -> {
+                    PlayerAnalytics pA = PlayerAnalyticsFactory.getPlayerAnalytics(player);
+                    if (!listAnalytics.contains(pA)) {
+                        listAnalytics.add(pA);
+                    }
+                })));
+
+        chart.setData(listAnalytics, confrontations);
     }
-    
+
     // TODO put somewhere
-    private int compareSession(Session s1, Session s2){
+    private int compareSession(Session s1, Session s2) {
         return Long.compare(s1.getSessionDate().toEpochDay(), s2.getSessionDate().toEpochDay());
     }
 

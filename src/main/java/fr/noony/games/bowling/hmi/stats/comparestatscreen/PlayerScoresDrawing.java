@@ -16,8 +16,7 @@
  */
 package fr.noony.games.bowling.hmi.stats.comparestatscreen;
 
-import fr.noony.games.bowling.Player;
-import fr.noony.games.bowling.Round;
+import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.utils.ColorFactory;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -35,9 +34,7 @@ import javafx.scene.shape.Circle;
  */
 public class PlayerScoresDrawing {
 
-    private final Player player;
-    // hum
-    private final Map<LocalDate, List<Round>> allRounds;
+    private final PlayerAnalytics analytics;
 
     private final List<ScoreTag> scores;
 
@@ -48,15 +45,15 @@ public class PlayerScoresDrawing {
     private double x = 0;
     private double y = 0;
 
-    public PlayerScoresDrawing(Player aPlayer, Map<LocalDate, List<Round>> playedRounds) {
-        player = aPlayer;
-        allRounds = playedRounds;
+    public PlayerScoresDrawing(PlayerAnalytics playerAnalytics) {
+        analytics = playerAnalytics;
         //
         mainNode = new Group();
         //
         scores = new LinkedList<>();
-        allRounds.forEach((date, rounds) -> 
-            rounds.stream().map(r -> new ScoreTag(date, r.getFinalScore(), color, rounds.indexOf(r))).forEachOrdered(scores::add)
+        //todo: for better perf, use only the relevant confrontations
+        playerAnalytics.getAllRounds().forEach((date, rounds)
+                -> rounds.stream().map(r -> new ScoreTag(date, r.getFinalScore(), color, rounds.indexOf(r))).forEachOrdered(scores::add)
         );
         mainNode.getChildren().addAll(scores.stream().map(s -> s.tag).collect(Collectors.toSet()));
     }

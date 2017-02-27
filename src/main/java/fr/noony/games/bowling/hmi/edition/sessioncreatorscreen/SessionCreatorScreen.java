@@ -40,7 +40,6 @@ public final class SessionCreatorScreen implements Screen {
 
     private final PropertyChangeSupport propertyChangeSupport;
 
-    
     private SessionCreatorScreenController controller;
     private Node screenNode;
 
@@ -58,7 +57,7 @@ public final class SessionCreatorScreen implements Screen {
     public Node getNavigationNode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void refresh() {
         // nothing to do
@@ -76,7 +75,7 @@ public final class SessionCreatorScreen implements Screen {
             controller = loader.getController();
             controller.addPropertyChangeListener(this::handleScreenActions);
         } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE,"Exception while loading session creator screen fxml file:: {0}",ex);
+            LOGGER.log(Level.SEVERE, "Exception while loading session creator screen fxml file:: {0}", ex);
         }
     }
 
@@ -90,7 +89,7 @@ public final class SessionCreatorScreen implements Screen {
     }
 
     public void createConfrontation(List<EditablePlayerRound> confrontationRounds) {
-        controller.createConfrontation( confrontationRounds);
+        controller.createConfrontation(confrontationRounds);
     }
 
 }

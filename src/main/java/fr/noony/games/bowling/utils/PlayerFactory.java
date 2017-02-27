@@ -88,7 +88,7 @@ public class PlayerFactory {
         private final String pLastName;
         private final String pNickName;
 
-        public PlayerImpl(int uniqueID, String firstName, String lastName, String nickName) {
+        private PlayerImpl(int uniqueID, String firstName, String lastName, String nickName) {
             pUniqueID = uniqueID;
             pFirstName = firstName;
             pLastName = lastName;
