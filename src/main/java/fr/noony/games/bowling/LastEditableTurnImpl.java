@@ -170,6 +170,9 @@ public class LastEditableTurnImpl implements LastEditableTurn {
 
     @Override
     public boolean isThirdBallSpare() {
+        if(isSecondBallSpare()){
+            return false;
+        }
         return ball3 != 10 && ball2 != 10 && ball2 + ball3 == 10;
     }
 
