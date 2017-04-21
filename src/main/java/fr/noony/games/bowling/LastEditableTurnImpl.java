@@ -160,7 +160,7 @@ public class LastEditableTurnImpl implements LastEditableTurn {
 
     @Override
     public boolean isThirdBallStrike() {
-        return ball3 == 10;
+        return ball3 == 10 && ball2 != 0;
     }
 
     @Override
@@ -170,10 +170,10 @@ public class LastEditableTurnImpl implements LastEditableTurn {
 
     @Override
     public boolean isThirdBallSpare() {
-        if(isSecondBallSpare()){
+        if (isSecondBallSpare() || isSecondBallStrike() || isThirdBallStrike()) {
             return false;
         }
-        return ball3 != 10 && ball2 != 10 && ball2 + ball3 == 10;
+        return ball2 + ball3 == 10;
     }
 
     @Override
