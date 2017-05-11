@@ -17,13 +17,13 @@
 package fr.noony.games.bowling.hmi.stats.comparestatscreen;
 
 import fr.noony.games.bowling.Confrontation;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.analytics.ComparisonMode;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.utils.PlayerAnalyticsFactory;
 import fr.noony.games.bowling.utils.SessionFactory;
+import fr.noony.gameutils.Player;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.time.LocalDate;

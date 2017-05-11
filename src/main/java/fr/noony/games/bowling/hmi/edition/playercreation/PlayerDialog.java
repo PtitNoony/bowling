@@ -16,8 +16,8 @@
  */
 package fr.noony.games.bowling.hmi.edition.playercreation;
 
-import fr.noony.games.bowling.Player;
-import fr.noony.games.bowling.utils.PlayerFactory;
+import fr.noony.gameutils.Player;
+import fr.noony.gameutils.PlayerFactory;
 import static javafx.application.Platform.runLater;
 import javafx.geometry.Insets;
 import javafx.scene.Node;

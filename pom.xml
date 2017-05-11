@@ -30,6 +30,11 @@
             <artifactId>controlsfx</artifactId>
             <version>8.40.12</version>
         </dependency>
+        <dependency>    
+            <groupId>fr.noony</groupId>
+            <artifactId>gameutils</artifactId>
+            <version>0.1</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

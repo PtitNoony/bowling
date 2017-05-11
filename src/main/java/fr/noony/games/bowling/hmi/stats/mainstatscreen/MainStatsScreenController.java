@@ -21,7 +21,7 @@ import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.utils.PlayerAnalyticsFactory;
-import fr.noony.games.bowling.utils.PlayerFactory;
+import fr.noony.gameutils.PlayerFactory;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;

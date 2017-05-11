@@ -18,8 +18,8 @@ package fr.noony.games.bowling.hmi.edition.confrontationcreatorscreen;
 
 import fr.noony.games.bowling.hmi.FxDrawing;
 import fr.noony.games.bowling.hmi.ThrowLabel;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.EditablePlayerRound;
+import fr.noony.gameutils.Player;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.geometry.Pos;

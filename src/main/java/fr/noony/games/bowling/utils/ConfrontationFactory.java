@@ -17,9 +17,9 @@
 package fr.noony.games.bowling.utils;
 
 import fr.noony.games.bowling.Confrontation;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.Session;
+import fr.noony.gameutils.Player;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashMap;

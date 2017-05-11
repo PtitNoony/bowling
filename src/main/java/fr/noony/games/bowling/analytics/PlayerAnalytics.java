@@ -16,7 +16,7 @@
  */
 package fr.noony.games.bowling.analytics;
 
-import fr.noony.games.bowling.Player;
+import fr.noony.gameutils.Player;
 import fr.noony.games.bowling.Round;
 import java.time.LocalDate;
 import java.util.List;

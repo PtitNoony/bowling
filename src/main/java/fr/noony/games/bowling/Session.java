@@ -16,6 +16,7 @@
  */
 package fr.noony.games.bowling;
 
+import fr.noony.gameutils.Player;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public interface Session {
     List<Player> getPlayers();
 
     int getTotalScore(Player p);
-    
+
     //hum? or just in equals??
     int getSessionID();
 

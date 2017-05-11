@@ -16,7 +16,7 @@
  */
 package fr.noony.games.bowling.hmi.edition.playercreation;
 
-import fr.noony.games.bowling.Player;
+import fr.noony.gameutils.Player;
 import java.util.Optional;
 
 /**

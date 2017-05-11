@@ -17,7 +17,9 @@
 package fr.noony.games.bowling.utils;
 
 import fr.noony.games.bowling.*;
-import static fr.noony.games.bowling.utils.PlayerXmlUtils.NICK_NAME;
+import fr.noony.gameutils.Player;
+import fr.noony.gameutils.PlayerFactory;
+import fr.noony.gameutils.PlayerXmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -117,7 +119,7 @@ public class XMLSaver {
         playerElement.setAttribute(ID, Integer.toString(player.getID()));
         playerElement.setAttribute(FIRST_NAME, player.getFirstName());
         playerElement.setAttribute(LAST_NAME, player.getLastName());
-        playerElement.setAttribute(NICK_NAME, player.getNickName());
+        playerElement.setAttribute(PlayerXmlUtils.NICK_NAME, player.getNickName());
         return playerElement;
     }
 

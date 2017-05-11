@@ -17,15 +17,15 @@
 package fr.noony.games.bowling.hmi.edition.sessioncreatorscreen;
 
 import fr.noony.games.bowling.Confrontation;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.EditablePlayerRound;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.hmi.edition.playercreation.PlayerDialogFactory;
 import fr.noony.games.bowling.utils.ConfrontationFactory;
-import fr.noony.games.bowling.utils.PlayerFactory;
 import fr.noony.games.bowling.utils.SessionFactory;
+import fr.noony.gameutils.Player;
+import fr.noony.gameutils.PlayerFactory;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
