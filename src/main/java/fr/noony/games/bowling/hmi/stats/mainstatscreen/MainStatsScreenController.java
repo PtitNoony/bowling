@@ -22,6 +22,7 @@ import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.utils.PlayerAnalyticsFactory;
 import fr.noony.games.bowling.utils.PlayerFactory;
+import fr.noony.games.bowling.utils.UIUtils;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
@@ -150,17 +151,17 @@ public class MainStatsScreenController implements ScreenController {
         //
         averageScoreColumn = new TableColumn<>("Avg. Score");
         averageScoreColumn.setPrefWidth(100);
-        averageScoreColumn.setCellValueFactory((TableColumn.CellDataFeatures<PlayerAnalytics, String> param) -> new ReadOnlyStringWrapper(Double.toString(param.getValue().getAverageScore())));
+        averageScoreColumn.setCellValueFactory((TableColumn.CellDataFeatures<PlayerAnalytics, String> param) -> new ReadOnlyStringWrapper(UIUtils.formatNumber(param.getValue().getAverageScore())));
         averageScoreColumn.setComparator(new ScoreComparator());
         //
         averageSpareColumn = new TableColumn<>("Avg. nb Spares");
         averageSpareColumn.setPrefWidth(150);
-        averageSpareColumn.setCellValueFactory((TableColumn.CellDataFeatures<PlayerAnalytics, String> param) -> new ReadOnlyStringWrapper(Double.toString(param.getValue().getAverageSpares())));
+        averageSpareColumn.setCellValueFactory((TableColumn.CellDataFeatures<PlayerAnalytics, String> param) -> new ReadOnlyStringWrapper(UIUtils.formatNumber(param.getValue().getAverageSpares())));
         averageSpareColumn.setComparator(new ScoreComparator());
         //
         averageStrikeColumn = new TableColumn<>("Avg. nb Strikes");
         averageStrikeColumn.setPrefWidth(150);
-        averageStrikeColumn.setCellValueFactory((TableColumn.CellDataFeatures<PlayerAnalytics, String> param) -> new ReadOnlyStringWrapper(Double.toString(param.getValue().getAverageStrikes())));
+        averageStrikeColumn.setCellValueFactory((TableColumn.CellDataFeatures<PlayerAnalytics, String> param) -> new ReadOnlyStringWrapper(UIUtils.formatNumber(param.getValue().getAverageStrikes())));
         averageStrikeColumn.setComparator(new ScoreComparator());
         //
         scoreTable.getColumns().addAll(nameColumn, minScoreColumn, maxScoreColumn, averageScoreColumn, averageSpareColumn, averageStrikeColumn);

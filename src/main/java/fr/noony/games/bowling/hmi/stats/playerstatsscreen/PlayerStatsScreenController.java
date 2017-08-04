@@ -19,15 +19,20 @@ package fr.noony.games.bowling.hmi.stats.playerstatsscreen;
 import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.ScreenController;
+import fr.noony.games.bowling.hmi.edition.scoreview.HistoryDrawing;
+import fr.noony.games.bowling.utils.UIUtils;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import static javafx.application.Platform.runLater;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -50,24 +55,32 @@ public class PlayerStatsScreenController implements ScreenController {
     private Label avgSparesLabel;
     @FXML
     private LineChart<String, Integer> scoresChart;
-    private PlayerAnalytics pA;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private AnchorPane playerGamesPane;
 
+    private PlayerAnalytics pA;
     private XYChart.Series series;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         series = new XYChart.Series();
         scoresChart.getData().add(series);
+        scoresChart.setAnimated(false);
+        yAxis.setAutoRanging(false);
+        yAxis.setLowerBound(0);
+        yAxis.setUpperBound(300);
+        yAxis.setTickUnit(25);
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
+    }
+
+    @FXML
+    protected void handleBackAction(ActionEvent event) {
+        System.err.println("TODO");
     }
 
     protected void refresh() {
@@ -81,11 +94,11 @@ public class PlayerStatsScreenController implements ScreenController {
 
     private void refreshUI() {
         playerLabel.setText(pA.getPlayer().toString());
-        avgScoreLabel.setText(Double.toString(pA.getAverageScore()));
+        avgScoreLabel.setText(UIUtils.formatNumber(pA.getAverageScore()));
         minScoreLabel.setText(Integer.toString(pA.getMinScore()));
         maxScoreLabel.setText(Integer.toString(pA.getMaxScore()));
-        avgStrikesLabel.setText(Double.toString(pA.getAverageStrikes()));
-        avgSparesLabel.setText(Double.toString(pA.getAverageSpares()));
+        avgStrikesLabel.setText(UIUtils.formatNumber(pA.getAverageStrikes()));
+        avgSparesLabel.setText(UIUtils.formatNumber(pA.getAverageSpares()));
         //
         series.setName(pA.getPlayer().getNickName() + " games");
         series.getData().clear();
@@ -95,5 +108,11 @@ public class PlayerStatsScreenController implements ScreenController {
                 series.getData().add(new XYChart.Data<>(date.toString() + " (" + i + ")", rounds.get(i).getFinalScore()));
             }
         });
+        //
+        HistoryDrawing historyDrawing = new HistoryDrawing(pA);
+        playerGamesPane.getChildren().add(historyDrawing);
+        playerGamesPane.setPrefSize(historyDrawing.getPrefWidth() + 16, historyDrawing.getPrefHeight() + 16);
+        AnchorPane.setTopAnchor(historyDrawing, 8.0);
+        AnchorPane.setLeftAnchor(historyDrawing, 8.0);
     }
 }

@@ -287,7 +287,6 @@ public class EditablePlayerRound implements Round {
                     currentScore = currentScore + 20 + turns[i + 2].getNbPinForThrow(1);
                     scores[i] = currentScore;
                 } else {
-
                     currentScore = currentScore + 10 + turns[i + 1].getNbPins();
                     scores[i] = currentScore;
                 }

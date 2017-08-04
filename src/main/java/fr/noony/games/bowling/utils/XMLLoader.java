@@ -74,7 +74,7 @@ public final class XMLLoader {
 
         }
     }
-
+    
     private static void parsePlayers(Element playerRootElement) {
         NodeList playerElements = playerRootElement.getElementsByTagName(XMLSaver.PLAYER);
         for (int i = 0; i < playerElements.getLength(); i++) {

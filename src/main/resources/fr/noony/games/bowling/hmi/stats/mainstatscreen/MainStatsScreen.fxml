@@ -18,7 +18,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ToggleSwitch layoutX="502.0" layoutY="35.0" text="Mode" AnchorPane.rightAnchor="14.0" />
+      <ToggleSwitch disable="true" layoutX="502.0" layoutY="35.0" text="Mode" AnchorPane.rightAnchor="14.0" />
       <SplitPane dividerPositions="0.7678756476683938" layoutX="14.0" layoutY="71.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="71.0">
          <items>
             <AnchorPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gainsboro;">

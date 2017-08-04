@@ -16,12 +16,12 @@
  */
 package fr.noony.games.bowling.hmi.edition.scoreview;
 
-
 import fr.noony.games.bowling.hmi.FxDrawing;
 import fr.noony.games.bowling.hmi.ThrowLabel;
 import fr.noony.games.bowling.LastTurn;
 import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.EditableTurn;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -33,16 +33,22 @@ import javafx.scene.text.FontWeight;
  */
 public class PlayerGameDrawing extends FxDrawing {
 
+    public enum DisplayMode {
+        NAME, DATE, NAME_DATE
+    }
+
     private final Rectangle background;
     private final ThrowLabel playerNameLabel;
     private final TurnDrawing[] turnDrawings;
     private final LastTurnDrawing lastTurnDrawing;
     private final ThrowLabel scoreLabel;
     private final Round game;
+    private DisplayMode displayMode;
 
-    public PlayerGameDrawing(Round g) {
+    public PlayerGameDrawing(Round g, DisplayMode mode) {
         super();
         game = g;
+        displayMode = mode;
         background = new Rectangle();
         playerNameLabel = new ThrowLabel(game.getPlayer().getNickName());
         /// todo: use constant for font
@@ -52,32 +58,6 @@ public class PlayerGameDrawing extends FxDrawing {
         scoreLabel = new ThrowLabel(Integer.toString(game.getFinalScore()));
         scoreLabel.setFont(Font.font(null, FontWeight.BOLD, 16));
         init();
-    }
-
-    private void init() {
-        background.setFill(Color.GHOSTWHITE);
-        background.setStroke(Color.BLACK);
-        background.setStrokeWidth(3.0);
-        addNode(background);
-        addNode(playerNameLabel.getNode());
-        for (int i = 0; i < turnDrawings.length; i++) {
-            TurnDrawing turnDrawing;
-            //TODO
-            if (game != null) {
-                turnDrawing = new TurnDrawing(game, (EditableTurn) game.getTurns()[i],i);
-            } else {
-                turnDrawing = new TurnDrawing(null, null,i);
-            }
-            turnDrawings[i] = turnDrawing;
-            addNode(turnDrawing.getNode());
-            turnDrawing.setTranslateX(PLAYER_NAME_WIDTH + i * DEFAULT_CELL_WIDTH);
-        }
-        addNode(lastTurnDrawing.getNode());
-        lastTurnDrawing.setTranslateX(PLAYER_NAME_WIDTH + 9 * DEFAULT_CELL_WIDTH);
-        addNode(scoreLabel.getNode());
-        scoreLabel.setTranslateX(PLAYER_NAME_WIDTH + 10 * DEFAULT_CELL_WIDTH);
-        scoreLabel.setPrefSize(DEFAULT_CELL_WIDTH, DEFAULT_CELL_HEIGHT);
-        //TODO: use set size instead
     }
 
     @Override
@@ -94,6 +74,58 @@ public class PlayerGameDrawing extends FxDrawing {
         lastTurnDrawing.setTranslateX(newCellWidth * (9 + CELL_NAME_RATIO));
         scoreLabel.setTranslateX((10 + CELL_NAME_RATIO) * newCellWidth);
         scoreLabel.setPrefSize(newCellWidth, sY);
+    }
+
+    public PlayerGameDrawing(Round g) {
+        this(g, DisplayMode.NAME);
+    }
+
+    public void setDisplayMode(DisplayMode newMode) {
+        displayMode = newMode;
+        updateLabel();
+    }
+
+    private void init() {
+        background.setFill(Color.GHOSTWHITE);
+        background.setStroke(Color.BLACK);
+        background.setStrokeWidth(3.0);
+        addNode(background);
+        addNode(playerNameLabel.getNode());
+        updateLabel();
+        for (int i = 0; i < turnDrawings.length; i++) {
+            TurnDrawing turnDrawing;
+            //TODO
+            if (game != null) {
+                turnDrawing = new TurnDrawing(game, (EditableTurn) game.getTurns()[i], i);
+            } else {
+                turnDrawing = new TurnDrawing(null, null, i);
+            }
+            turnDrawings[i] = turnDrawing;
+            addNode(turnDrawing.getNode());
+            turnDrawing.setTranslateX(PLAYER_NAME_WIDTH + i * DEFAULT_CELL_WIDTH);
+        }
+        addNode(lastTurnDrawing.getNode());
+        lastTurnDrawing.setTranslateX(PLAYER_NAME_WIDTH + 9 * DEFAULT_CELL_WIDTH);
+        addNode(scoreLabel.getNode());
+        scoreLabel.setTranslateX(PLAYER_NAME_WIDTH + 10 * DEFAULT_CELL_WIDTH);
+        scoreLabel.setPrefSize(DEFAULT_CELL_WIDTH, DEFAULT_CELL_HEIGHT);
+        //TODO: use set size instead
+    }
+
+    private void updateLabel() {
+        switch (displayMode) {
+            case NAME:
+                playerNameLabel.setText(game.getPlayer().getNickName());
+                break;
+            case DATE:
+                playerNameLabel.setText(game.getConfrontation().getConfrontationDate().format(DateTimeFormatter.ISO_DATE));
+                break;
+            case NAME_DATE:
+                playerNameLabel.setText(game.getPlayer().getNickName() + " | " + game.getConfrontation().getConfrontationDate().format(DateTimeFormatter.ISO_DATE));
+                break;
+            default:
+                throw new UnsupportedOperationException("Display mode not supported:: " + displayMode);
+        }
     }
 
 }
