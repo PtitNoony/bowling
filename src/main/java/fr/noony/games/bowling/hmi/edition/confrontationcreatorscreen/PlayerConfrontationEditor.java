@@ -16,9 +16,9 @@
  */
 package fr.noony.games.bowling.hmi.edition.confrontationcreatorscreen;
 
+import com.github.ptitnoony.gameutils.Player;
 import fr.noony.games.bowling.hmi.FxDrawing;
 import fr.noony.games.bowling.hmi.ThrowLabel;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.EditablePlayerRound;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -96,7 +96,7 @@ public class PlayerConfrontationEditor extends FxDrawing {
             turnEditors[i].setSize(newCellWidth, sY);
             turnEditors[i].setTranslateX(newCellWidth * (i + CELL_NAME_RATIO));
         }
-        lastTurnEditor.setSize(newCellWidth*2.0, sY);
+        lastTurnEditor.setSize(newCellWidth * 2.0, sY);
         lastTurnEditor.setTranslateX(newCellWidth * (9 + CELL_NAME_RATIO));
         scoreLabel.setTranslateX((11 + CELL_NAME_RATIO) * newCellWidth);
         scoreLabel.setPrefSize(newCellWidth, sY);

@@ -11,7 +11,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>3.6.2</version>
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
@@ -34,6 +34,11 @@
             <groupId>eu.hansolo</groupId>
             <artifactId>tilesfx</artifactId>
             <version>1.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ptitnoony</groupId>
+            <artifactId>gameutils</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

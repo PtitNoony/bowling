@@ -16,8 +16,10 @@
  */
 package fr.noony.games.bowling.utils;
 
+import com.github.ptitnoony.gameutils.Player;
+import com.github.ptitnoony.gameutils.PlayerFactory;
+import com.github.ptitnoony.gameutils.PlayerXmlUtils;
 import fr.noony.games.bowling.Confrontation;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.EditablePlayerRound;
@@ -74,7 +76,7 @@ public final class XMLLoader {
 
         }
     }
-    
+
     private static void parsePlayers(Element playerRootElement) {
         NodeList playerElements = playerRootElement.getElementsByTagName(XMLSaver.PLAYER);
         for (int i = 0; i < playerElements.getLength(); i++) {
@@ -94,7 +96,7 @@ public final class XMLLoader {
         LocalDate date = LocalDate.parse(dateString);
         String location = element.getAttribute(XMLSaver.SESSION_LOCATION);
         //
-        Session session = SessionFactory.createSession(date,location);
+        Session session = SessionFactory.createSession(date, location);
         //
         NodeList confrontations = element.getElementsByTagName(XMLSaver.CONFRONTATION);
         for (int i = 0; i < confrontations.getLength(); i++) {
@@ -120,7 +122,7 @@ public final class XMLLoader {
         EditablePlayerRound round = new EditablePlayerRound(player);
         NodeList turns = element.getElementsByTagName(XMLSaver.TURN);
         for (int i = 0; i < 9; i++) {
-            parseTurn((Element) turns.item(i), round, i+1);
+            parseTurn((Element) turns.item(i), round, i + 1);
         }
         NodeList lastTurns = element.getElementsByTagName(XMLSaver.LAST_TURN);
         parseLastTurn((Element) lastTurns.item(0), round);
@@ -155,7 +157,6 @@ public final class XMLLoader {
         round.setThrowValue(10, 2, ball2);
         round.setTurnIsSplit(10, split);
 
-
 //        lastTurnElement.setAttribute(STRIKE, "" + lastTurn.isStrike());
 //        lastTurnElement.setAttribute(SPARE, "" + lastTurn.isSpare());
 //        lastTurnElement.setAttribute(SPLIT, "" + lastTurn.isSplit());
@@ -164,7 +165,6 @@ public final class XMLLoader {
 //        lastTurnElement.setAttribute(STRIKE_3, "" + lastTurn.isThirdBallStrike());
 //        lastTurnElement.setAttribute(SPLIT_3, "" + lastTurn.isThirdBallSplit());
 //        lastTurnElement.setAttribute(SPARE_3, "" + lastTurn.isThirdBallSpare());
-
         //TODO: test consistency with logged strike and spare
     }
 

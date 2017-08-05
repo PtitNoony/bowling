@@ -79,6 +79,7 @@ public class PlayerStatsScreen implements Screen {
 
     private void handleHomeScreenActions(PropertyChangeEvent event) {
         // TODO well
+        System.err.println("Going here");
         propertyChangeSupport.firePropertyChange(event.getPropertyName(), event.getOldValue(), event.getNewValue());
     }
 

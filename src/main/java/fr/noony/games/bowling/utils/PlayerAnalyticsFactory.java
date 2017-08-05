@@ -16,7 +16,7 @@
  */
 package fr.noony.games.bowling.utils;
 
-import fr.noony.games.bowling.Player;
+import com.github.ptitnoony.gameutils.Player;
 import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;

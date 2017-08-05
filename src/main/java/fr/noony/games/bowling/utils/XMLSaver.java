@@ -16,8 +16,10 @@
  */
 package fr.noony.games.bowling.utils;
 
+import com.github.ptitnoony.gameutils.Player;
+import com.github.ptitnoony.gameutils.PlayerFactory;
+import static com.github.ptitnoony.gameutils.PlayerXmlUtils.NICK_NAME;
 import fr.noony.games.bowling.*;
-import static fr.noony.games.bowling.utils.PlayerXmlUtils.NICK_NAME;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

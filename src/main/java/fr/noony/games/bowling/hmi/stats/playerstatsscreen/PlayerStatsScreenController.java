@@ -19,9 +19,11 @@ package fr.noony.games.bowling.hmi.stats.playerstatsscreen;
 import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.ScreenController;
+import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.hmi.edition.scoreview.HistoryDrawing;
 import fr.noony.games.bowling.utils.UIUtils;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -60,6 +62,8 @@ public class PlayerStatsScreenController implements ScreenController {
     @FXML
     private AnchorPane playerGamesPane;
 
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(PlayerStatsScreenController.this);
+
     private PlayerAnalytics pA;
     private XYChart.Series series;
 
@@ -76,11 +80,12 @@ public class PlayerStatsScreenController implements ScreenController {
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
     @FXML
     protected void handleBackAction(ActionEvent event) {
-        System.err.println("TODO");
+        propertyChangeSupport.firePropertyChange(ScreenEvents.BACK_TO_MAIN_STATS, null, null);
     }
 
     protected void refresh() {

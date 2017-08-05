@@ -16,6 +16,7 @@
  */
 package fr.noony.games.bowling;
 
+import com.github.ptitnoony.gameutils.Player;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

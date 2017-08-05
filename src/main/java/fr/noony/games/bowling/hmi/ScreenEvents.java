@@ -27,21 +27,23 @@ public class ScreenEvents {
 
     //public static final String OPEN_SESSION_EDITOR
     public static final String OPEN_CONFRONTATION_CREATOR = "openConfrontationCreator";
-    
+
     public static final String OPEN_SESSION_VIEWER = "openSessionViewer";
 
     public static final String NEW_CONFRONTATION = "newConfrontation";
 
     public static final String MAIN_SCREEN = "mainScreen";
-    
+
     public static final String CANCEL = "cancel";
-    
+
     //TODO rename: ambiguous
     public static final String BACK_HOME = "backHome";
-    
+
     // Stats related events
     public static final String VIEW_PLAYER_STATS = "viewPlayerStats";
-    
+
     public static final String COMPARE_PLAYERS_STATS = "comparePlayersStats";
-    
+
+    public static final String BACK_TO_MAIN_STATS = "backToMainStats";
+
 }

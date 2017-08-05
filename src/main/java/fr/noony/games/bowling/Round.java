@@ -16,6 +16,8 @@
  */
 package fr.noony.games.bowling;
 
+import com.github.ptitnoony.gameutils.Player;
+
 /**
  *
  * @author Arnaud HAMON-KEROMEN

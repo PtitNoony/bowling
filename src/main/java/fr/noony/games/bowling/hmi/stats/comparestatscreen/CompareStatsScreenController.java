@@ -16,8 +16,8 @@
  */
 package fr.noony.games.bowling.hmi.stats.comparestatscreen;
 
+import com.github.ptitnoony.gameutils.Player;
 import fr.noony.games.bowling.Confrontation;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.analytics.ComparisonMode;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;

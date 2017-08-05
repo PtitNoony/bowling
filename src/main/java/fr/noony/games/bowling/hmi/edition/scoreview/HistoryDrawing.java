@@ -17,8 +17,6 @@
 package fr.noony.games.bowling.hmi.edition.scoreview;
 
 import fr.noony.games.bowling.hmi.ThrowLabel;
-import fr.noony.games.bowling.Player;
-import fr.noony.games.bowling.Round;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import static fr.noony.games.bowling.hmi.FxDrawing.CELL_NAME_RATIO;
 import static fr.noony.games.bowling.hmi.FxDrawing.DEFAULT_CELL_HEIGHT;

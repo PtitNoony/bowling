@@ -16,11 +16,11 @@
  */
 package fr.noony.games.bowling.hmi.edition.confrontationcreatorscreen;
 
+import com.github.ptitnoony.gameutils.Player;
 import static fr.noony.games.bowling.hmi.FxDrawing.CELL_NAME_RATIO;
 import static fr.noony.games.bowling.hmi.FxDrawing.DEFAULT_EDITOR_CELL_HEIGHT;
 import static fr.noony.games.bowling.hmi.FxDrawing.DEFAULT_EDITOR_CELL_WIDTH;
 import fr.noony.games.bowling.hmi.ThrowLabel;
-import fr.noony.games.bowling.Player;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.EditablePlayerRound;
 import fr.noony.games.bowling.hmi.ScreenEvents;

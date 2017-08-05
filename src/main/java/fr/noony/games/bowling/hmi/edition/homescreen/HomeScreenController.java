@@ -16,12 +16,12 @@
  */
 package fr.noony.games.bowling.hmi.edition.homescreen;
 
-import fr.noony.games.bowling.Player;
+import com.github.ptitnoony.gameutils.Player;
+import com.github.ptitnoony.gameutils.PlayerFactory;
 import fr.noony.games.bowling.Session;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.hmi.edition.playercreation.PlayerDialogFactory;
-import fr.noony.games.bowling.utils.PlayerFactory;
 import fr.noony.games.bowling.utils.SessionFactory;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

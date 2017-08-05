@@ -220,8 +220,7 @@ public class MainFrameController implements Initializable {
     private void loadPlayerStatPage(PlayerAnalytics playerAnalytics) {
         if (playerStatsScreen == null) {
             playerStatsScreen = new PlayerStatsScreen();
-            //TODO
-//            mainStatsScreen.addPropertyChangeListener(this::handleHomeEvents);
+            playerStatsScreen.addPropertyChangeListener(this::handlePlayerStatsEvents);
         }
         setAnchorPaneConstant(playerStatsScreen.getMainNode());
         currentScreen = playerStatsScreen;
@@ -326,7 +325,6 @@ public class MainFrameController implements Initializable {
     }
 
     private void handleMainStatsEvents(PropertyChangeEvent event) {
-//        System.err.println("handleMainStatsEvents " + event.getPropertyName());
         // Test the screen and display mode
         switch (event.getPropertyName()) {
             case ScreenEvents.VIEW_PLAYER_STATS:
@@ -338,7 +336,17 @@ public class MainFrameController implements Initializable {
             default:
                 throw new UnsupportedOperationException("Unsupported event on MAIN STAT SCREEN page:: " + event.getPropertyName());
         }
+    }
 
+    private void handlePlayerStatsEvents(PropertyChangeEvent event) {
+        // Test the screen and display mode
+        switch (event.getPropertyName()) {
+            case ScreenEvents.BACK_TO_MAIN_STATS:
+                loadStatHomePage();
+                break;
+            default:
+                throw new UnsupportedOperationException("Unsupported event on PLAYER STAT SCREEN page:: " + event.getPropertyName());
+        }
     }
 
     private void setAnchorPaneConstant(Node node) {

@@ -16,12 +16,12 @@
  */
 package fr.noony.games.bowling.hmi.stats.mainstatscreen;
 
+import com.github.ptitnoony.gameutils.PlayerFactory;
 import fr.noony.games.bowling.analytics.ComparisonMode;
 import fr.noony.games.bowling.analytics.PlayerAnalytics;
 import fr.noony.games.bowling.hmi.ScreenController;
 import fr.noony.games.bowling.hmi.ScreenEvents;
 import fr.noony.games.bowling.utils.PlayerAnalyticsFactory;
-import fr.noony.games.bowling.utils.PlayerFactory;
 import fr.noony.games.bowling.utils.UIUtils;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
