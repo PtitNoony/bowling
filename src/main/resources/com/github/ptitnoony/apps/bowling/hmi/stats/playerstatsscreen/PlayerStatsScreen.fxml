@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.games.bowling.hmi.stats.playerstatsscreen.PlayerStatsScreenController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.ptitnoony.apps.bowling.hmi.stats.playerstatsscreen.PlayerStatsScreenController">
    <children>
       <VBox layoutX="8.0" layoutY="8.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="8.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
          <children>

@@ -27,9 +27,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.games.bowling.hmi.MainFrameController">
+<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.ptitnoony.apps.bowling.hmi.MainFrameController">
     <stylesheets>
-        <URL value="@/fr/noony/games/bowling/hmi/mainframe.css" />
+        <URL value="@/com/github/ptitnoony/apps/bowling/hmi/mainframe.css" />
     </stylesheets>
    <children>
       <HBox spacing="8.0" style="-fx-background-color: darkgrey;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
