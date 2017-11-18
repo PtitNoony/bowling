@@ -4,6 +4,6 @@ jdk:
 addons:
   apt:
     packages:
-      - oracle-java8-installer
+      - oracle-java9-installer
 
 script: mvn clean verify
